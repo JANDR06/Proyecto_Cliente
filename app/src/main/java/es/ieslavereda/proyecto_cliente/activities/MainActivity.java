@@ -1,11 +1,7 @@
 package es.ieslavereda.proyecto_cliente.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-
 import java.util.List;
-
-import es.ieslavereda.proyecto_cliente.API.CallMethods;
 import es.ieslavereda.proyecto_cliente.API.Connector;
 import es.ieslavereda.proyecto_cliente.R;
 import es.ieslavereda.proyecto_cliente.activities.model.Oficio;
@@ -15,7 +11,6 @@ import es.ieslavereda.proyecto_cliente.base.CallInterface;
 import es.ieslavereda.proyecto_cliente.base.Parameters;
 
 public class MainActivity extends BaseActivity implements CallInterface {
-
 
     private List<Usuario> usuarios;
     private List<Oficio> oficios;

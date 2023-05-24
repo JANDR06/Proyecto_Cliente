@@ -6,12 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.List;
-
 import es.ieslavereda.proyecto_cliente.R;
 import es.ieslavereda.proyecto_cliente.activities.model.Usuario;
 import es.ieslavereda.proyecto_cliente.base.ImageDownloader;
@@ -19,15 +16,13 @@ import es.ieslavereda.proyecto_cliente.base.Parameters;
 
 public class Adaptador extends RecyclerView.Adapter<Adaptador.ViewHolder> {
 
-
     private List<Usuario> usuarios;
-    private final LayoutInflater inflater;
-    //Preparamos el viewholder para que sea clicable
+    private LayoutInflater inflater;
     private View.OnClickListener onClickListener;
 
-    public MyRecyclerViewAdapter(Context context) {
-        listaUsuarios = UsuarioRepository.getInstance();
-        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    public Adaptador(Context context, List<Usuario> usuarios) {
+        this(context);
+        this.usuarios = usuarios;
     }
 
 //    public MyRecyclerViewAdapter(Context context, List<Usuario> usuarios) {
@@ -46,10 +41,15 @@ public class Adaptador extends RecyclerView.Adapter<Adaptador.ViewHolder> {
         return new ViewHolder(view);
     }
 
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
+    }
+
     // Usando como base el ViewHolder y lo personalizamos
     @Override
-    public void onBindViewHolder(@NonNull MyRecyclerViewAdapter.ViewHolder holder, int position) {
-        Usuario usuario = listaUsuarios.get(position);
+    public void onBindViewHolder(@NonNull Adaptador.ViewHolder holder, int position) {
+        Usuario usuario = usuarios.get(position);
         Profesion profesion = ProfesionRepository.getInstance().getProfesionByImage(usuario.getIdProfesion());
         holder.nombre.setText(usuario.getApellidos() + ", " + usuario.getNombre());
         holder.profesion.setText(profesion.getNombre());
