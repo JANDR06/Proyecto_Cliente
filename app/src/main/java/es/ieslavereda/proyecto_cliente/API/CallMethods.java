@@ -1,10 +1,11 @@
 package es.ieslavereda.proyecto_cliente.API;
 
 
-import com.example.myweatherbase.base.Parameters;
+
 
 import java.io.IOException;
 
+import es.ieslavereda.proyecto_cliente.base.Parameters;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;

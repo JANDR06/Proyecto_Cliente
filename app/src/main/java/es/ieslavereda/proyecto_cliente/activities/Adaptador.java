@@ -1,7 +1,6 @@
 package es.ieslavereda.proyecto_cliente.activities;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,83 +10,76 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myweatherbase.R;
-import com.example.myweatherbase.activities.model.Root;
-import com.example.myweatherbase.base.ImageDownloader;
-import com.example.myweatherbase.base.Parameters;
+import java.util.List;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-
+import es.ieslavereda.proyecto_cliente.R;
+import es.ieslavereda.proyecto_cliente.activities.model.Usuario;
+import es.ieslavereda.proyecto_cliente.base.ImageDownloader;
+import es.ieslavereda.proyecto_cliente.base.Parameters;
 
 public class Adaptador extends RecyclerView.Adapter<Adaptador.ViewHolder> {
 
-    private LayoutInflater inflater;
-    private Root root;
 
-    public Adaptador(Context context, Root r) {
-        this.root = r;
+    private List<Usuario> usuarios;
+    private final LayoutInflater inflater;
+    //Preparamos el viewholder para que sea clicable
+    private View.OnClickListener onClickListener;
+
+    public MyRecyclerViewAdapter(Context context) {
+        listaUsuarios = UsuarioRepository.getInstance();
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
+//    public MyRecyclerViewAdapter(Context context, List<Usuario> usuarios) {
+//        this(context);
+//        this.usuarios = usuarios;
+//    }
+
+    // Creamos el ViewHolder con la vista de un elemento sin personalizar
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // Inflamos la vista desde el xml
         View view = inflater.inflate(R.layout.simple_element, parent, false);
+        //ponemos el listener para que sea clicable
+        view.setOnClickListener(onClickListener);
         return new ViewHolder(view);
     }
 
+    // Usando como base el ViewHolder y lo personalizamos
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
-        Date date = new Date(root.list.get(position).dt * 1000L);
-        holder.fecha.setText(new SimpleDateFormat("dd/MM/yyyy").format(date));
-        holder.hora.setText(new SimpleDateFormat("HH:mm").format(date));
-        holder.diasemana.setText(new SimpleDateFormat("EEEE",new Locale("es","ES")).format(date));
-        holder.temperatura.setText(root.list.get(position).main.temp + "º");
-        holder.estado.setText(root.list.get(position).weather.get(0).description);
-        holder.maximo.setText(root.list.get(position).main.temp_max + "º");
-        holder.minimo.setText(root.list.get(position).main.temp_min + "º");
-        ImageDownloader.downloadImage(Parameters.ICON_URL_PRE + root.list.get(position).weather.get(0).icon + Parameters.ICON_URL_POST, holder.image);
-
-
-         holder.itemView.setOnClickListener(view -> {
-            Intent intent = new Intent(view.getContext(), MainActivityDetails.class);
-            intent.putExtra("extra", root);
-             intent.putExtra("numero", position);
-            view.getContext().startActivity(intent);
-        });
-
+    public void onBindViewHolder(@NonNull MyRecyclerViewAdapter.ViewHolder holder, int position) {
+        Usuario usuario = listaUsuarios.get(position);
+        Profesion profesion = ProfesionRepository.getInstance().getProfesionByImage(usuario.getIdProfesion());
+        holder.nombre.setText(usuario.getApellidos() + ", " + usuario.getNombre());
+        holder.profesion.setText(profesion.getNombre());
+        ImageDownloader.downloadImage(Parameters.ICON_URL_PRE + holder.imagen);
     }
 
+    // Indicamos el número de elementos de la lista
     @Override
     public int getItemCount() {
-        return root.list.size();
+        return listaUsuarios.size();
     }
 
+    //Creamos nuestro ViewHolder, con los tipos de elementos a modificar
     public static class ViewHolder extends RecyclerView.ViewHolder {
+        private TextView nombre;
+        private TextView profesion;
+        private ImageView imagen;
 
-        ImageView image;
-        TextView diasemana;
-        TextView fecha;
-        TextView hora;
-        TextView estado;
-        TextView temperatura;
-        TextView minimo;
-        TextView maximo;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
-            image = itemView.findViewById(R.id.imagen);
-            diasemana = itemView.findViewById(R.id.dia);
-            fecha = itemView.findViewById(R.id.fecha);
-            hora = itemView.findViewById(R.id.hora);
-            estado = itemView.findViewById(R.id.estadoCielo);
-            temperatura = itemView.findViewById(R.id.temperatura);
-            minimo = itemView.findViewById(R.id.minimo);
-            maximo = itemView.findViewById(R.id.maximo);
+            nombre = itemView.findViewById(R.id.textViewNombre);
+            profesion = itemView.findViewById(R.id.textViewOficio);
+            imagen = itemView.findViewById(R.id.imageView);
         }
     }
+
+    //setter del atributo onClickListener
+    public void setOnClickListener(View.OnClickListener onClickListener){
+        this.onClickListener = onClickListener;
+    }
+
 }
