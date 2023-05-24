@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 import es.ieslavereda.proyecto_cliente.R;
+import es.ieslavereda.proyecto_cliente.activities.model.Oficio;
 import es.ieslavereda.proyecto_cliente.activities.model.Usuario;
 import es.ieslavereda.proyecto_cliente.base.ImageDownloader;
 import es.ieslavereda.proyecto_cliente.base.Parameters;
@@ -17,18 +18,16 @@ import es.ieslavereda.proyecto_cliente.base.Parameters;
 public class Adaptador extends RecyclerView.Adapter<Adaptador.ViewHolder> {
 
     private List<Usuario> usuarios;
+    private List<Oficio> oficios;
     private LayoutInflater inflater;
     private View.OnClickListener onClickListener;
 
-    public Adaptador(Context context, List<Usuario> usuarios) {
-        this(context);
+    public Adaptador(Context context, List<Usuario> usuarios, List<Oficio> oficios) {
+        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.usuarios = usuarios;
+        this.oficios = oficios;
     }
 
-//    public MyRecyclerViewAdapter(Context context, List<Usuario> usuarios) {
-//        this(context);
-//        this.usuarios = usuarios;
-//    }
 
     // Creamos el ViewHolder con la vista de un elemento sin personalizar
     @NonNull
