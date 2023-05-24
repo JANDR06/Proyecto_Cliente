@@ -1,4 +1,2 @@
-package es.ieslavereda.proyecto_cliente.base;
-
-public class MyProgressBar {
+package es.ieslavereda.proyecto_cliente.base;public class MyProgressBar {
 }
