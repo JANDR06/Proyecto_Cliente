@@ -1,4 +1,4 @@
 package es.ieslavereda.proyecto_cliente.activities.model;
 
-public class Root {
+public class Oficio {
 }
