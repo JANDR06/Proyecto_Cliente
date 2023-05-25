@@ -39,7 +39,7 @@ public class Adaptador extends RecyclerView.Adapter<Adaptador.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         holder.nombre.setText(usuarios.get(position).getApellidos() + ", " + usuarios.get(position).getNombre());
-        holder.oficio.setText(oficios.get(usuarios.get(position).getIdOficio()).getDescripcion());
+        holder.oficio.setText(oficios.get(usuarios.get(position).getIdOficio()-1).getDescripcion());
         ImageDownloader.downloadImage(Parameters.ICON_URL_PRE + oficios.get(usuarios.get(position).getIdOficio()).getUrlImagen(), holder.imagen);
 
     }
