@@ -28,14 +28,10 @@ public class Adaptador extends RecyclerView.Adapter<Adaptador.ViewHolder> {
         this.oficios = oficios;
     }
 
-
-    // Creamos el ViewHolder con la vista de un elemento sin personalizar
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // Inflamos la vista desde el xml
         View view = inflater.inflate(R.layout.simple_element, parent, false);
-        //ponemos el listener para que sea clicable
         view.setOnClickListener(onClickListener);
         return new ViewHolder(view);
     }
@@ -43,40 +39,33 @@ public class Adaptador extends RecyclerView.Adapter<Adaptador.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-    }
-
-    // Usando como base el ViewHolder y lo personalizamos
-    @Override
-    public void onBindViewHolder(@NonNull Adaptador.ViewHolder holder, int position) {
         Usuario usuario = usuarios.get(position);
-        Profesion profesion = ProfesionRepository.getInstance().getProfesionByImage(usuario.getIdProfesion());
+        Oficio oficio = oficios.get(position);
+
         holder.nombre.setText(usuario.getApellidos() + ", " + usuario.getNombre());
-        holder.profesion.setText(profesion.getNombre());
-        ImageDownloader.downloadImage(Parameters.ICON_URL_PRE + holder.imagen);
+        holder.oficio.setText(oficio.getDescripcion());
+        ImageDownloader.downloadImage(Parameters.ICON_URL_PRE, holder.imagen);
+
     }
 
-    // Indicamos el número de elementos de la lista
     @Override
     public int getItemCount() {
-        return listaUsuarios.size();
+        return usuarios.size() + oficios.size();
     }
 
-    //Creamos nuestro ViewHolder, con los tipos de elementos a modificar
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView nombre;
-        private TextView profesion;
+        private TextView oficio;
         private ImageView imagen;
-
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             nombre = itemView.findViewById(R.id.textViewNombre);
-            profesion = itemView.findViewById(R.id.textViewOficio);
+            oficio = itemView.findViewById(R.id.textViewOficio);
             imagen = itemView.findViewById(R.id.imageView);
         }
     }
 
-    //setter del atributo onClickListener
     public void setOnClickListener(View.OnClickListener onClickListener){
         this.onClickListener = onClickListener;
     }

@@ -4,14 +4,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.ViewGroup;
-
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.myweatherbase.API.Connector;
-
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
+import es.ieslavereda.proyecto_cliente.API.Connector;
 
 public class BaseActivity extends AppCompatActivity {
 
