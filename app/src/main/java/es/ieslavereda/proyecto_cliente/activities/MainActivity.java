@@ -1,6 +1,8 @@
 package es.ieslavereda.proyecto_cliente.activities;
 
 import android.os.Bundle;
+import android.view.View;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
@@ -10,7 +12,7 @@ import es.ieslavereda.proyecto_cliente.activities.model.Oficio;
 import es.ieslavereda.proyecto_cliente.activities.model.Usuario;
 import es.ieslavereda.proyecto_cliente.base.BaseActivity;
 import es.ieslavereda.proyecto_cliente.base.CallInterface;
-import es.ieslavereda.proyecto_cliente.base.Parameters;
+
 
 public class MainActivity extends BaseActivity implements CallInterface {
 
@@ -45,6 +47,7 @@ public class MainActivity extends BaseActivity implements CallInterface {
         Adaptador adaptador = new Adaptador(this, usuarios, oficios);
 
         recyclerView.setAdapter(adaptador);
+        adaptador.setInfo(usuarios, oficios);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
     }

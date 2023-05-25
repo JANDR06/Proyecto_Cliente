@@ -24,8 +24,7 @@ public class Adaptador extends RecyclerView.Adapter<Adaptador.ViewHolder> {
 
     public Adaptador(Context context, List<Usuario> usuarios, List<Oficio> oficios) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.usuarios = usuarios;
-        this.oficios = oficios;
+
     }
 
     @NonNull
@@ -39,18 +38,23 @@ public class Adaptador extends RecyclerView.Adapter<Adaptador.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        Usuario usuario = usuarios.get(position);
-        Oficio oficio = oficios.get(position);
-
-        holder.nombre.setText(usuario.getApellidos() + ", " + usuario.getNombre());
-        holder.oficio.setText(oficio.getDescripcion());
-        ImageDownloader.downloadImage(Parameters.ICON_URL_PRE, holder.imagen);
+        holder.nombre.setText(usuarios.get(position).getApellidos() + ", " + usuarios.get(position).getNombre());
+        holder.oficio.setText(oficios.get(usuarios.get(position).getIdOficio()).getDescripcion());
+        ImageDownloader.downloadImage(Parameters.ICON_URL_PRE + oficios.get(usuarios.get(position).getIdOficio()).getUrlImagen(), holder.imagen);
 
     }
 
     @Override
     public int getItemCount() {
-        return usuarios.size();
+        if (usuarios != null) {
+            return usuarios.size();
+        }
+        return 0;
+    }
+
+    public void setInfo(List<Usuario> usuario, List<Oficio> oficio) {
+        this.usuarios = usuario;
+        this.oficios = oficio;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
