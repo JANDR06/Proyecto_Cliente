@@ -50,7 +50,7 @@ public class Adaptador extends RecyclerView.Adapter<Adaptador.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return usuarios.size() + oficios.size();
+        return usuarios.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

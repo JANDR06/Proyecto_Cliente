@@ -33,8 +33,8 @@ public class MainActivity extends BaseActivity implements CallInterface {
 
     @Override
     public void doInBackground() {
-        usuarios = Connector.getConector().getAsList(Usuario.class, Parameters.URL+"usuarios/");
-        oficios = Connector.getConector().getAsList(Oficio.class, Parameters.URL+"oficios/");
+        usuarios = Connector.getConector().getAsList(Usuario.class, "usuarios/");
+        oficios = Connector.getConector().getAsList(Oficio.class, "oficios/");
     }
 
     @Override
