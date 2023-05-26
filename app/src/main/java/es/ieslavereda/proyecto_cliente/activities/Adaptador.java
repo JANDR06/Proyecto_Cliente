@@ -39,10 +39,21 @@ public class Adaptador extends RecyclerView.Adapter<Adaptador.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         holder.nombre.setText(usuarios.get(position).getApellidos() + ", " + usuarios.get(position).getNombre());
-        holder.oficio.setText(oficios.get(usuarios.get(position).getIdOficio()-1).getDescripcion());
+        holder.profesion.setText(oficios.get(usuarios.get(position).getIdOficio()-1).getDescripcion());
         ImageDownloader.downloadImage(Parameters.ICON_URL_PRE + oficios.get(usuarios.get(position).getIdOficio()).getUrlImagen(), holder.imagen);
 
+/*
+        Usuario usuario = usuarios.get(position);
+        holder.nombre.setText(usuario.getApellidos()+", "+ usuario.getNombre());
+
+        Oficio oficio = oficios.get(usuarios.get(position).getIdOficio()-1);
+        holder.profesion.setText(oficio.getDescripcion());
+
+        ImageDownloader.downloadImage(Parameters.ICON_URL_PRE + oficios.get(usuarios.get(position).getIdOficio()).getUrlImagen(), holder.imagen);
+
+ */
     }
+
 
     @Override
     public int getItemCount() {
@@ -59,13 +70,13 @@ public class Adaptador extends RecyclerView.Adapter<Adaptador.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView nombre;
-        private TextView oficio;
+        private TextView profesion;
         private ImageView imagen;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             nombre = itemView.findViewById(R.id.textViewNombre);
-            oficio = itemView.findViewById(R.id.textViewOficio);
+            profesion = itemView.findViewById(R.id.textViewOficio);
             imagen = itemView.findViewById(R.id.imageView);
         }
     }
